@@ -1,0 +1,1 @@
+ecr-repos-to-create=["user-service", "customer-service", "order-service", "product-service"]
