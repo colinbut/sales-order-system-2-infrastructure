@@ -1,3 +1,11 @@
+terraform {
+    backend "s3" {
+        bucket = "sales-order-system-terraform-state-s3-bucket"
+        key     = "mgmt/container-repo/terraform.tfstate"
+        region  = "eu-west-2"
+    }
+}
+
 provider "aws" {
     region = "eu-west-2"
 }
