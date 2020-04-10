@@ -1,3 +1,11 @@
+terraform {
+    backend "s3" {
+        bucket = "sales-order-system-terraform-state-s3-bucket"
+        key     = "mgmt/jenkins/terraform.tfstate"
+        region  = "eu-west-2"
+    }
+}
+
 provider "aws" {
     region = "eu-west-2"
 }
@@ -20,6 +28,7 @@ resource "aws_instance" "jenkins_master" {
     key_name                    = local.key_name
 
     vpc_security_group_ids      = [module.mgmt-network.jenkins_security_group_id]
+    subnet_id                   = module.mgmt-network.vpc_network_subnet1_id
     
     tags = {
         Name = "Jenkins-Master"
@@ -34,6 +43,7 @@ resource "aws_instance" "jenkins_slave" {
     key_name                    = local.key_name
 
     vpc_security_group_ids      = [module.mgmt-network.jenkins_security_group_id]
+    subnet_id                   = module.mgmt-network.vpc_network_subnet1_id
 
     count                       = 2
     
