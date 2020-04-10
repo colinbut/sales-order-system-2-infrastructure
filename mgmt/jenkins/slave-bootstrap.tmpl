@@ -1,0 +1,46 @@
+#!/bin/bash
+
+yum update -y
+yum install java-1.8.0-openjdk-devel -y
+
+# installing Docker
+amazon-linux-extras install docker
+service docker start
+
+# Installing git
+yum install git -y
+
+# Installing Maven
+wget https://www-eu.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip
+unzip apache-maven-3.6.3-bin.zip
+mv apache-maven-3.6.3 maven && \
+    mv maven /opt/maven
+rm apache-maven-3.6.3-bin.zip
+export JAVA_HOME=/usr/lib/jvm/jre-openjdk
+export PATH=$PATH:/opt/maven/bin/
+
+# Installing Gradle
+wget https://services.gradle.org/distributions/gradle-5.0-bin.zip -P /opt/
+cd /opt/
+unzip gradle-5.0-bin.zip
+rm -f gradle-5.0-bin.zip
+mv gradle-5.0 gradle
+export $PATH=$PATH:/opt/gradle/bin/
+
+# Installing Ansible
+
+# Installing Terraform
+wget https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip
+unzip terraform_0.12.17_linux_amd64.zip
+mv terraform /usr/local/bin/
+rm -f terraform_0.12.17_linux_amd64.zip
+
+# Installing Packer
+wget https://releases.hashicorp.com/packer/1.5.5/packer_1.5.5_linux_amd64.zip
+unzip packer_1.5.5_linux_amd64.zip
+mv packer /usr/local/bin/
+rm -f packer_1.5.5_linux_amd64.zip
+
+# Installing Node & NPM
+curl --silent --location https://rpm.nodesource.com/setup_10.x | bash - && \
+    yum install nodejs -y

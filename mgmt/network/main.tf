@@ -22,8 +22,8 @@ resource "aws_security_group" "jenkins_security_group" {
     vpc_id          = module.vpc.vpc_id
     
     ingress {
-        from_port   = 9000
-        to_port     = 9000
+        from_port   = 9091
+        to_port     = 9091
         protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }

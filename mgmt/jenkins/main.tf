@@ -29,6 +29,7 @@ resource "aws_instance" "jenkins_master" {
 
     vpc_security_group_ids      = [module.mgmt-network.jenkins_security_group_id]
     subnet_id                   = module.mgmt-network.vpc_network_subnet1_id
+    user_data                   = templatefile("${path.module}/master-bootstrap.tmpl", {})
     
     tags = {
         Name = "Jenkins-Master"
@@ -44,6 +45,7 @@ resource "aws_instance" "jenkins_slave" {
 
     vpc_security_group_ids      = [module.mgmt-network.jenkins_security_group_id]
     subnet_id                   = module.mgmt-network.vpc_network_subnet1_id
+    user_data                   = templatefile("${path.module}/slave-bootstrap.tmpl", {})
 
     count                       = 2
     
