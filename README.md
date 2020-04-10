@@ -1,1 +1,5 @@
-# sales-order-system-2-infrastructure
+# Sales Order System 2.0 : Infrastructure
+
+## Tech
+
+- Terraform
