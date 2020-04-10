@@ -1,8 +1,9 @@
 terraform {
     backend "s3" {
-        bucket = "sales-order-system-terraform-state-s3-bucket"
-        key     = "mgmt/container-repo/terraform.tfstate"
-        region  = "eu-west-2"
+        bucket          = "sales-order-system-terraform-state-s3-bucket"
+        key             = "mgmt/container-repo/terraform.tfstate"
+        region          = "eu-west-2"
+        dynamodb_table  = "sales-order-system-S3-state-lock"
     }
 }
 
