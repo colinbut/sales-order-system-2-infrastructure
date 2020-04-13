@@ -33,12 +33,13 @@ locals {
 }
 
 module "backend-server" {
-    source      = "../../../../modules/backend-servers"
+    source          = "../../../../modules/backend-servers"
 
-    ami         = local.ami
-    key_pair    = local.key_pair
-    server_name = "${local.server_name}-${local.environment}"
+    ami             = local.ami
+    key_pair        = local.key_pair
+    server_name     = "${local.server_name}-${local.environment}"
     security_groups = aws_security_group.security_group
+    subnet_id       = lookup(data.terraform_remote_state.app_network.outputs.subnets, "app_private_subnet_a").id
 }
 
 resource "aws_security_group" "security_group" {
