@@ -18,3 +18,14 @@ variable "server_name" {
     type = string
     description = "The name of the server to tag with"
 }
+
+variable "enable_public_facing" {
+    type        = bool
+    description = "Should assign a public ip address to make it public facing or not"
+    default     = true
+}
+
+variable "security_groups" {
+    type        = list
+    description = "Security Groups to associate with this EC2 instance"
+}

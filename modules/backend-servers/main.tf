@@ -11,8 +11,9 @@ resource "aws_instance" "server" {
     ami                         = var.ami
     instance_type               = var.instance_type
     key_name                    = var.key_pair
-    associate_public_ip_address = true
+    associate_public_ip_address = var.enable_public_facing
     iam_instance_profile        = data.terraform_remote_state.roles.outputs.ec2_ecr_instance_profile_name
+    security_groups             = var.security_groups
     
     user_data                   = <<EOF
                                     #!/bin/bash
