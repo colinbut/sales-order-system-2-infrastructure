@@ -28,15 +28,13 @@ resource "aws_security_group" "bastian_host_security_group" {
     }
 }
 
-resource "aws_instance" "bastian_host" {
-    ami                         = local.ami
-    instance_type               = local.instance_type
-    key_name                    = local.key_pair
-    associate_public_ip_address = true
-    subnet_id                   = lookup(module.app_public_subnets.subnets, "app_public_subnet_b").id
-    vpc_security_group_ids      = [aws_security_group.bastian_host_security_group.id]
+module "backend-server" {
+    source                  = "../../../../modules/backend-servers"
 
-    tags = {
-        Name = "Bastian Host"
-    }
+    ami                     = local.ami
+    key_pair                = local.key_pair
+    server_name             = "Bastian Host"
+    enable_public_facing    = true
+    subnet_id               = lookup(module.app_public_subnets.subnets, "app_public_subnet_b").id
+    security_groups         = aws_security_group.bastian_host_security_group.id
 }

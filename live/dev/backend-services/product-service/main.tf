@@ -33,12 +33,12 @@ locals {
 }
 
 module "backend-server" {
-    source      = "../../../../modules/backend-servers"
+    source                  = "../../../../modules/backend-servers"
 
-    ami         = local.ami
-    key_pair    = local.key_pair
-    server_name = "${local.server_name}-${local.environment}"
-    security_groups = aws_security_group.security_group
+    ami                     = local.ami
+    key_pair                = local.key_pair
+    server_name             = "${local.server_name}-${local.environment}"
+    security_groups         = aws_security_group.security_group
 }
 
 resource "aws_security_group" "security_group" {

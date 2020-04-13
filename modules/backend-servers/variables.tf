@@ -22,10 +22,15 @@ variable "server_name" {
 variable "enable_public_facing" {
     type        = bool
     description = "Should assign a public ip address to make it public facing or not"
-    default     = true
+    default     = false
 }
 
 variable "security_groups" {
     type        = list
     description = "Security Groups to associate with this EC2 instance"
+}
+
+variable "subnet_id" {
+    type        = string
+    description = "The subnet id to launch this EC2 instance in"
 }

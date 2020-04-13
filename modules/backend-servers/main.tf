@@ -14,7 +14,8 @@ resource "aws_instance" "server" {
     associate_public_ip_address = var.enable_public_facing
     iam_instance_profile        = data.terraform_remote_state.roles.outputs.ec2_ecr_instance_profile_name
     security_groups             = var.security_groups
-    
+    subnet_id                   = var.subnet_id
+
     user_data                   = <<EOF
                                     #!/bin/bash
                                     amazon-linux-extras install docker -y
