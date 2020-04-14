@@ -29,12 +29,12 @@ resource "aws_security_group" "bastian_host_security_group" {
 }
 
 module "backend-server" {
-    source                  = "../../../../modules/backend-servers"
+    source                  = "../../../modules/backend-servers"
 
     ami                     = local.ami
     key_pair                = local.key_pair
     server_name             = "Bastian Host"
     enable_public_facing    = true
     subnet_id               = lookup(module.app_public_subnets.subnets, "app_public_subnet_b").id
-    security_groups         = aws_security_group.bastian_host_security_group.id
+    security_groups         = [aws_security_group.bastian_host_security_group.id]
 }
