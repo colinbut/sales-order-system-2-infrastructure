@@ -32,19 +32,19 @@ module "app_public_subnets" {
     vpc_id              = module.app_vpc.vpc_id
 
     subnets = {
-        "app_public_subnet_a"   = {
+        "01-app_public_subnet_a"   = {
             availability_zone   = "eu-west-1a"
             public_ip           = true
         }
-        "app_public_subnet_b"   = {
+        "02-app_public_subnet_b"   = {
             availability_zone   = "eu-west-1b"
             public_ip           = true
         }
-        "app_private_subnet_a"  = {
+        "03-app_private_subnet_a"  = {
             availability_zone   = "eu-west-1a"
             public_ip           = false
         }
-        "app_private_subnet_b"  = {
+        "04-app_private_subnet_b"  = {
             availability_zone   = "eu-west-1b"
             public_ip           = false
         }

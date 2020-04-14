@@ -5,6 +5,6 @@ resource "aws_subnet" "subnets" {
     availability_zone       = each.value.availability_zone
     map_public_ip_on_launch = each.value.public_ip
     tags = {
-        Name = each.key
+        Name = substr(each.key, 3, -1)
     }
 }
