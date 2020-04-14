@@ -1,5 +1,5 @@
 variable "vpc_id" {
-    type = number
+    type        = string
     description = "The Id of the VPC"
 }
 
