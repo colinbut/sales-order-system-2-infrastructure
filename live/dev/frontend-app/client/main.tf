@@ -33,13 +33,14 @@ locals {
 }
 
 module "frontend-webserver-server" {
-    source          = "../../../../modules/backend-servers"
+    source                  = "../../../../modules/backend-servers"
 
-    ami             = local.ami
-    key_pair        = local.key_pair
-    server_name     = "${local.server_name}-${local.environment}"
-    subnet_id       = lookup(data.terraform_remote_state.app_network.outputs.subnets, "app_public_subnet_a").id
-    security_groups = aws_security_group.security_group
+    ami                     = local.ami
+    key_pair                = local.key_pair
+    server_name             = "${local.server_name}-${local.environment}"
+    enable_public_facing    = true
+    subnet_id               = lookup(data.terraform_remote_state.app_network.outputs.subnets, "app_public_subnet_a").id
+    security_groups         = [aws_security_group.security_group.id]
 }
 
 resource "aws_security_group" "security_group" {
