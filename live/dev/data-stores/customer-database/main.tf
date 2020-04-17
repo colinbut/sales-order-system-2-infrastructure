@@ -61,6 +61,7 @@ resource "aws_db_instance" "mysql_on_rds" {
     allow_major_version_upgrade = true
     availability_zone           = "eu-west-1a"
     port                        = 3306
+    skip_final_snapshot         = true
     vpc_security_group_ids      = [aws_security_group.mysql_rds_security_group.id]
     publicly_accessible         = true
     db_subnet_group_name        = aws_db_subnet_group.mysql_rds_subnet_group.id
