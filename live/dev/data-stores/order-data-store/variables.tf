@@ -18,7 +18,8 @@ variable "environment" {
     description = "The environment to provision into (for info purposes)"
 }
 
-variable "http_port" {
+variable "mongo_port" {
     type        = number
-    description = "The port that the microservice runs on"
+    description = "The port that this ec2 instance exports"
+    default     = 27017
 }
