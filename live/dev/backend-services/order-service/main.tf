@@ -41,7 +41,7 @@ resource "aws_security_group" "security_group" {
 
 resource "aws_security_group_rule" "allow_http_access" {
     type                = "ingress"
-    description         = "allow_ssh_from_bastian"
+    description         = "allow_http_access"
     from_port           = local.http_port
     to_port             = local.http_port
     protocol            = local.protocol

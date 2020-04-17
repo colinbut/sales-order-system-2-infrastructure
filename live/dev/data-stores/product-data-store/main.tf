@@ -19,21 +19,10 @@ data "terraform_remote_state" "app_network" {
     }
 }
 
-locals {
-    redis_port = 6379
-}
-
 resource "aws_security_group" "redis_elasticache_security_group" {
     name        = "redis_elasticache_security_group"
     description = "The security group for the redis elasticache"
     vpc_id      = data.terraform_remote_state.app_network.outputs.vpc_id
-
-    ingress {
-        from_port   = local.redis_port
-        to_port     = local.redis_port
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
 }
 
 resource "aws_elasticache_subnet_group" "elasticache_redis_subnet_group" {
@@ -51,5 +40,5 @@ resource "aws_elasticache_cluster" "product_redis_elasticache_cluster" {
     parameter_group_name    = "default.redis5.0"
     security_group_ids      = [aws_security_group.redis_elasticache_security_group.id]
     subnet_group_name       = aws_elasticache_subnet_group.elasticache_redis_subnet_group.name
-    port                    = local.redis_port
+    port                    = 6379
 }

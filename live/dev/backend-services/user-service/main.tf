@@ -46,25 +46,34 @@ resource "aws_security_group" "security_group" {
     name        = "${local.server_name}_security_group"
     description = "The SG for normal web access & SSH from a Bastian Host (Management Server)"
     vpc_id      = data.terraform_remote_state.app_network.outputs.vpc_id
+}
 
-    ingress {
-        from_port   = local.http_port
-        to_port     = local.http_port
-        protocol    = local.protocol
-        cidr_blocks = ["10.0.1.0/24"]
-    }
+resource "aws_security_group_rule" "allow_http_access" {
+    type                = "ingress"
+    description         = "allow_http_access"
+    from_port           = local.http_port
+    to_port             = local.http_port
+    protocol            = local.protocol
+    cidr_blocks         = ["10.0.1.0/24"]
+    security_group_id   = aws_security_group.security_group.id
+}
 
-    ingress {
-        from_port   = local.ssh_port
-        to_port     = local.ssh_port
-        protocol    = local.protocol
-        cidr_blocks = ["10.0.2.0/24"]
-    }
+resource "aws_security_group_rule" "allow_ssh_from_bastian" {
+    type                = "ingress"
+    description         = "allow_ssh_from_bastian"
+    from_port           = local.ssh_port
+    to_port             = local.ssh_port
+    protocol            = local.protocol
+    cidr_blocks         = ["10.0.2.0/24"]
+    security_group_id   = aws_security_group.security_group.id
+}
 
-    egress {
-        from_port   = local.any_port
-        to_port     = local.any_port
-        protocol    = local.any_protocol
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+resource "aws_security_group_rule" "default_outbound" {
+    type                = "egress"
+    description         = "default_outbound"
+    from_port           = local.any_port
+    to_port             = local.any_port
+    protocol            = local.any_protocol
+    cidr_blocks         = ["0.0.0.0/0"]
+    security_group_id   = aws_security_group.security_group.id
 }
