@@ -1,5 +1,6 @@
-# Sales Order System 2.0 : Infrastructure
+# Sales Order System 2.0 : Infrastructure (Docker on EC2)
 
+This project is a direct spin-off from the main [Sales Order System 2.0](https://github.com/colinbut/sales-order-system-2.git) project. Whereas that project showcases the theme of "Application Development" - this project demonstrates in particular the __Infrastructure as Code__ concept of __Infrastructure Provisioning__.
 
 
 ## Table of Contents
@@ -13,23 +14,40 @@
     - [Provision App-Network](#provision-app-network)
     - [Provision the Data Stores](#provision-the-data-stores)
     - [Provision the Backend Servers](#provision-the-backend-servers)
+    - [Provision the Middleware Components](#provision-the-middleware-components)
     - [Provision the Frontend App](#provision-the-frontend-app)
   - [Deploying Worldwide](#deploying-worldwide)
 
 
-## Tech
+## Technology
 
 - Terraform
 
 ## Application Platform 
 
+This section covers a brief overview of the Sales Order System 2.0 platform which is AWS Cloud Native.
+
+Each backend microservice is a Java 8-Spring Boot web service packaged up in a Docker Image which then gets bundled to run inside an EC2 instance (by default `t2.micro`). UserService uses an embedded in-memory H2 database. Customer Service uses MySQL so we go native and uses AWS's managed database service (RDS) with MySQL as its engine. Since Product Service uses Redis as its backing NoSQL datastore, I choose to use AWS Elasticache (with obviously Redis as its engine). Rather than fiddling with the complexity of using AWS DocumentDB (MongoDB compatible) I choose to simply run MongoDB in a Docker Container running directly inside EC2 instances (just like the backend microservices). 
+
+Frontend App is simply a SPA (Single Page Application) React application where its static files are served statically from a simple Http Web Server (Apache). A middleware component (NGINX) which acts as both an API Gateway & a Reverse Proxy sits in-between the frontend app & the backend microservices in order to hide the backend services from the public internet (backend services sit inside a private subnet - see section below) and to route content to different URLs served by different backend service.
+
+Also setup DNS with Route53 to configure a simple A record to allow accessing the frontend app via a human-friendly domain name (a domain name which I bought & registered using Route53). 
+
+
 ![System Architecture](https://images-for-github-colinbut.s3.eu-west-2.amazonaws.com/sales-order-system-2/sales-order-system-2-system-arch.png)
 
 ## Network Architecture
 
+A standard VPC with 4 subnets configured (2 x public, 2 x private) residing from 2 different Availability Zones (AZs). The backend microservices and its databases/datastores lives inside the private subnets. The frontend app lives in the public subnet. The middleware component (API Gateway/Reverse Proxy) also resides in the public subnet for reasons mentioned above. The frontend app talks directly to this middleware component in order to communicate with the backend services.
+
 ![Network Diagram](https://images-for-github-colinbut.s3.eu-west-2.amazonaws.com/sales-order-system-2/sales-order-system-2-network-diagram.png)
 
+Having the middleware component living inside the public subnet also allows exposing the backend services's Swagger (API Doc) outside for testing only.
 
+2 AZs with one acting as a primary and the other standby to facilitate a primary to standby failover/disaster recovery mechanism. For example, by default, I've provisioned everything into `eu-west-1a` and if need be can bring everything up again in the 2nd AZ (`eu-west-1b`) and then can easily switch traffic to that side by reconfigure DNS in Route53.
+I've personally not done this and simply left it as a future exercise to do.
+
+Finally, I've also provisioned a Bastian Host (Jump Host/Management Server) to allow me to ssh onto the EC2 instances running in the private subnets so that I can do my maintenance on them. Currently, I've isolated this management server to be in the same AZ as the standby AZ (for pure demo purposes).
 
 ## Environments
 
