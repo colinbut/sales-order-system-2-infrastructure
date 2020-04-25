@@ -1,8 +1,34 @@
 # Sales Order System 2.0 : Infrastructure
 
+This 
+
+## Table of Contents
+
+  - [Tech](#tech)
+  - [Application Platform](#application-platform)
+  - [Network Architecture](#network-architecture)
+  - [Environments](#environments)
+  - [Folder Structure](#folder-structure)
+  - [Provisioning Guide](#provisioning-guide)
+    - [Provision App-Network](#provision-app-network)
+    - [Provision the Data Stores](#provision-the-data-stores)
+    - [Provision the Backend Servers](#provision-the-backend-servers)
+    - [Provision the Frontend App](#provision-the-frontend-app)
+
+
 ## Tech
 
 - Terraform
+
+## Application Platform 
+
+![System Architecture](https://images-for-github-colinbut.s3.eu-west-2.amazonaws.com/sales-order-system-2/sales-order-system-2-system-arch.png)
+
+## Network Architecture
+
+![Network Diagram](https://images-for-github-colinbut.s3.eu-west-2.amazonaws.com/sales-order-system-2/sales-order-system-2-network-diagram.png)
+
+
 
 ## Environments
 
