@@ -27,8 +27,8 @@ This project is a direct spin-off from the main [Sales Order System 2.0](https:/
   - DynamoDB
   - EC2
   - ECR
-  - RDS
-  - Elasticache
+  - RDS (MySQL)
+  - Elasticache (Redis)
 
 ## Application Platform 
 
