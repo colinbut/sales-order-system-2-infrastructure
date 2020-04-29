@@ -5,7 +5,7 @@ This project is a direct spin-off from the main [Sales Order System 2.0](https:/
 
 ## Table of Contents
 
-  - [Tech](#tech)
+  - [Tech](#technology)
   - [Application Platform](#application-platform)
   - [Network Architecture](#network-architecture)
   - [Environments](#environments)
@@ -22,6 +22,13 @@ This project is a direct spin-off from the main [Sales Order System 2.0](https:/
 ## Technology
 
 - Terraform
+- AWS:
+  - S3
+  - DynamoDB
+  - EC2
+  - ECR
+  - RDS
+  - Elasticache
 
 ## Application Platform 
 
