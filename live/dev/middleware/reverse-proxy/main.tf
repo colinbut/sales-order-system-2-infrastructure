@@ -1,12 +1,3 @@
-terraform {
-    backend "s3" {
-        bucket          = "sales-order-system-terraform-state-s3-bucket"
-        key             = "live/dev/middleware/reverse-proxy/terraform.tfstate"
-        region          = "eu-west-1"
-        dynamodb_table  = "sales-order-system-S3-state-lock"
-    }
-}
-
 provider "aws" {
     region = "eu-west-1"
 }
