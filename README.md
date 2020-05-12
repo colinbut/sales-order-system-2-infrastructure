@@ -22,6 +22,7 @@ This project is a direct spin-off from the main [Sales Order System 2.0](https:/
 ## Technology
 
 - Terraform
+- Terragrunt
 - AWS:
   - S3
   - DynamoDB
@@ -87,15 +88,18 @@ navigate to the correct folder for provision depending on which environment:
 - `staging`
 - `prod`
 
+
+This projects uses the Terragrunt tool - a wrapper tool developed by __Gruntwork__ that wraps Terraform to provide extra functionality that is certainly a miss from Terraform. I've used Terragrunt mainly for keeping my Terraform configurations as DRY as possible (i.e. keeping my remote backend and provider DRY).
+
 ### Provision App-Network
 
 First need to provision the network that the app (sales-order-system) lives on.
 
 ```bash
 cd live/[environment]/app-network/
-terraform init
-terraform plan
-terraform apply --auto-approve
+terragrunt init
+terragrunt plan
+terragrunt apply --auto-approve
 ```
 
 ### Provision the Data Stores
@@ -104,27 +108,27 @@ Certain backend services (Customer Service, Order Service, and Product Service) 
 
 ```bash
 cd live/[environment]/data-stores/
-terraform init
-terraform plan
-terraform apply --auto-approve
+terragrunt init
+terragrunt plan
+terragrunt apply --auto-approve
 ```
 
 ### Provision the Backend Servers
 
 ```bash
 cd live/[environment]/backend-servers/
-terraform init
-terraform plan
-terraform apply --auto-approve
+terragrunt init
+terragrunt plan
+terragrunt apply --auto-approve
 ```
 
 ### Provision the Middleware Component(s)
 
 ```bash
 cd live/[environment]/middleware/*
-terraform init
-terraform plan
-terraform apply --auto-approve
+terragrunt init
+terragrunt plan
+terragrunt apply --auto-approve
 ```
 
 ### Provision the Frontend App
@@ -139,9 +143,9 @@ Once done, follow steps below:
 
 ```bash
 cd live/[environment]/frontend-app/
-terraform init
-terraform plan
-terraform apply --auto-approve
+terragrunt init
+terragrunt plan
+terragrunt apply --auto-approve
 ```
 
 ## Deploying Worldwide
