@@ -1,7 +1,3 @@
-provider "aws" {
-    region = "eu-west-1"
-}
-
 data "terraform_remote_state" "app_network" {
     backend = "s3"
     config = {

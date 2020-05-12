@@ -1,7 +1,3 @@
-provider "aws" {
-    region = "eu-west-1"
-}
-
 resource "aws_route53_record" "www_domain_url" {
     zone_id = data.aws_route53_zone.hosted_zone.zone_id
     name    = var.domain_name

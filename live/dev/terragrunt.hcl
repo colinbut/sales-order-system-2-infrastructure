@@ -13,3 +13,13 @@ remote_state {
         dynamodb_table = "sales-order-system-S3-state-lock"
     }
 }
+
+generate "provider" {
+    path = "provider.tf"
+    if_exists = "overwrite_terragrunt"
+    contents = <<EOF
+provider "aws" {
+    region = "eu-west-1"
+}
+EOF
+}

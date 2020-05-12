@@ -1,8 +1,3 @@
-provider "aws" {
-    region = "eu-west-1"
-
-}
-
 resource "aws_eip" "app_elastic_ip_address" {
     vpc = true
 }

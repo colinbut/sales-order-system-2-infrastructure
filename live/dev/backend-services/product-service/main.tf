@@ -1,7 +1,3 @@
-provider "aws" {
-    region = "eu-west-1"
-}
-
 locals {
     ami             = var.ami
     key_pair        = var.key_pair
